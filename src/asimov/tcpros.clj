@@ -215,7 +215,7 @@ Throws an exception if no free port can be found after 1000 retries."
         server (some #(try
                         {:server (a/start-server handler {:port %})
                          :port %}
-                        (catch org.jboss.netty.channel.ChannelException e
+                        (catch Exception e
                           (t/log :info "caught exception: " e)))
                      ports)]
     (if server
@@ -223,4 +223,3 @@ Throws an exception if no free port can be found after 1000 retries."
           server)
       (throw (ex-info "Could not find a free port."
                       {:type ::no-free-port :ports ports})))))
-
